@@ -1,0 +1,49 @@
+部分テンプレート用
+show(user)
+
+<% @post_images.each do |post_image| %>
+ 　<!--コントローラーから渡された@post_images内のレコードを1つずつ取り出してpost_imageに格納-->
+　<div>
+　 <%= link_to post_image_path(post_image.id) do %>
+  　<%= attachment_image_tag post_image, :image %>
+  　<!--post_imageのimage_idに保存された画像のimgタグを生成-->
+   <% end %>
+   <!--4-7行目の間，do-endまでの間をaタグ[リンク]で囲っている状態になる．-->
+   <!--つまり5行目のimgタグはaタグに囲まれた状態になる-->
+   
+  　<p>投稿ユーザー画像：<%= attachment_image_tag post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></p>
+  　<!--attachment_image_tag 保存先インスタンス名, :保存先カラム名, :サイズ（横幅,高さ）, 画像拡張子, 代替画像 -->
+  　<!--:profile_image　　実際のカラムは「profile_image_id」ですが、_idを外したカラム名（profile_image）で指定します（refileの仕様）。-->
+  　<p>ショップ名: <%= post_image.shop_name %></p>
+  　<p>説明: <%= post_image.caption %></p>
+  　<p>ユーザーネーム: <%= post_image.user.name %></p>
+  　<!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示します。-->
+  　<!-- post_image.関連付けたモデル.関連付けたモデル内のカラム ←の-->
+　</div>
+<% end %>
+<%= paginate @post_images %>
+
+
+
+index
+
+<% @post_images.each do |post_image| %>
+ 　<!--コントローラーから渡された@post_images内のレコードを1つずつ取り出してpost_imageに格納-->
+　<div>
+　 <%= link_to post_image_path(post_image.id) do %>
+  　<%= attachment_image_tag post_image, :image %>
+  　<!--post_imageのimage_idに保存された画像のimgタグを生成-->
+   <% end %>
+   <!--4-7行目の間，do-endまでの間をaタグ[リンク]で囲っている状態になる．-->
+   <!--つまり5行目のimgタグはaタグに囲まれた状態になる-->
+   
+  　<p>投稿ユーザー画像: <%= attachment_image_tag post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+  　<p>ショップ名: <%= post_image.shop_name %></p>
+  　<p>説明: <%= post_image.caption %></p>
+  　<p>ユーザーネーム: <%= post_image.user.name %></p>
+  　<!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示します。-->
+  　<!-- post_omage.関連付けたモデル.関連付けたモデル内のカラム ←の-->
+  　 <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+　</div>
+<% end %>
+<%= paginate @post_images %>
