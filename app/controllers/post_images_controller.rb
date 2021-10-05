@@ -15,9 +15,8 @@ class PostImagesController < ApplicationController
   else
    render :new
   end
-   
  end
-
+ 
  def index
    @post_images = PostImage.page(params[:page]).reverse_order
    
